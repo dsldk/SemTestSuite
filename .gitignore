@@ -92,7 +92,7 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-SemTestSuite/pdm
 __pypackages__/
 
 # Celery stuff
@@ -111,11 +111,11 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder SemTestSuite settings
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope SemTestSuite settings
 .ropeproject
 
 # mkdocs documentation
@@ -135,7 +135,7 @@ apikeys_test.txt
 apikeys.dev.txt
 apikeys.prod.txt
 sqlite.db
-project/default.ini
+SemTestSuite/default.ini
 
 # pytype static type analyzer
 .pytype/

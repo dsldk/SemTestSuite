@@ -1,7 +1,6 @@
-fastapi
-fastapi_simple_security~=1.2.0
 pytest
 pytest-asyncio
 pytest-env
 requests
+streamlit
 uvicorn

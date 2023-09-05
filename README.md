@@ -18,7 +18,7 @@ pip install -e .
 ## Run in development mode
 
 ```bash
-cd project
+cd SemTestSuite
 uvicorn app:app --reload
 ```
 
