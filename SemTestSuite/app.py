@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-from SemTestSuite.utils import get_lexibot_response, get_models, get_roles, get_role, new_chat, get_image_from_prompt
+from SemTestSuite.utils import get_lexibot_response, get_models, get_roles, get_role, new_chat, get_image_from_prompt, \
+    process_data, convert_df
 
 
 def chat(model: str) -> None:
@@ -90,19 +91,56 @@ def main() -> None:
             st.session_state.template = selected_template
 
         uploaded_file = st.file_uploader("Choose a file")
-        if uploaded_file is not None:
-            dataframe = pd.read_csv(uploaded_file)
-            st.write(dataframe)
 
 
         if st.button("New dialogue"):
             st.session_state.activated = True
             st.session_state.dialogue = new_chat(instructions).get("dialogue", [])
 
-
-
-
         st.divider()
+
+    if uploaded_file is not None:
+        dataframe = pd.read_csv(uploaded_file,
+                                sep="\t",
+                                header=0,
+                                names=["a", "b", "label", "comment"]
+                                )
+
+        answers = process_data(dataframe, selected_model, instructions, selected_template)
+        dataframe["answer"] = answers
+
+        st.write(dataframe)
+
+        csv = convert_df(dataframe)
+
+        x = dataframe["label"]
+        y = dataframe["answer"]
+
+        if selected_role in ["similarity", "relatedness"]:
+            y = y.apply(lambda row: float(row.replace(",", ".")))
+
+            rank = x.corr(y, method="spearman")
+            st.write("Spearman rank correlation", rank)
+
+        else:
+            x = x.astype("str")
+            x = x.str.lower()
+
+            y = y.astype("str")
+            y = y.str.lower()
+
+            compare = x == y
+            result = compare.mean()
+
+            st.write("Average correct answers: ", result)
+
+
+        st.download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name='large_df.csv',
+            mime='text/csv',
+        )
 
     if st.session_state.activated:
         chat(model=selected_model)

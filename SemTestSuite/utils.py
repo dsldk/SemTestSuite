@@ -124,7 +124,24 @@ def get_image_from_prompt(prompt: str) -> List[str]:
         return []
 
 
-def process_data(data: pd.DataFrame, instructions):
+def process_data(data: pd.DataFrame, model, instructions, template):
     answers = []
+
     for row in data.itertuples():
-        pass
+        a = row.a
+        b = row.b
+        print(a, b)
+
+        dialogue = new_chat(instructions).get("dialogue", [])
+
+        new_template = template.replace("{b}", b).replace("{a}", a)
+
+        reply, dialogue = get_lexibot_response(new_template, model, dialogue, 1)
+
+        answers.append(reply)
+
+    return answers
+
+def convert_df(df):
+    return df.to_csv().encode('utf-8')
+
