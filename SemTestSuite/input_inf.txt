@@ -1,0 +1,7 @@
+sætning_1_2	sætning_3	korrekt_svar	kommentar
+en fisk lever i vand; en torsk er en fisk	en torsk lever i vand	true
+en fisk lever i vand; en torsk er en fisk	en torsk lever på land	false
+en fisk er ikke et pattedyr; en fladfisk er en fisk	en fladfisk lever i vand	true
+en fisk er ikke et pattedyr; en fladfisk er en fisk	en fladfisk lever på land	false
+en butik er en bygning, i en butik kan man købe ting	en netbutik er en bygning	false
+en butik er en bygning, i en butik kan man købe ting	en netbutik er ikke en bygning	true
